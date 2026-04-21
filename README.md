@@ -1,4 +1,4 @@
-# Dnake-HomeAssistant-Bridge
+<img width="1280" height="2534" alt="微信图片编辑_20260421203544" src="https://github.com/user-attachments/assets/05a4a8f0-ba42-4910-82e1-860b89a0e57c" /># Dnake-HomeAssistant-Bridge
 
 分享给沁兰园的邻居们，把开发商交付智能面板上的灯和空调地暖新风三件套全部接入Home Assistant实现双向同步和远程控制（内网穿透/tailscale下可以实现在HA里远程开关控制设备，具体不在此赘述，可自行问ai或参考相关外网访问的教程实现）
 
@@ -197,6 +197,13 @@ docker logs -f dnake_zigbee
 # ... 
 
 ```
+
+配置后HA里的实际效果
+
+<img width="1280" height="2527" alt="微信图片编辑_20260421203518" src="https://github.com/user-attachments/assets/14d42b06-8d5b-4571-b6a1-a8a45a68593a" />
+
+<img width="1280" height="2534" alt="微信图片编辑_20260421203544" src="https://github.com/user-attachments/assets/d8f43218-ab3a-46c5-aba8-8dd2bd1378ab" />
+
 
 ## 👨‍🔬 常见问题 
 * **HA里设备状态显示“未知”？** 别担心，第一次接入按一下每个开关，状态就会立即同步并永久记录。
