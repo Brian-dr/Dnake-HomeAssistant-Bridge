@@ -5,11 +5,44 @@
 在此特别感谢jupiter2021的启发，本项目借鉴了部分思路。
 源项目地址：https://github.com/jupiter2021/smart-home-zigbee
 
-# 🏠 狄耐克 (Dnake) 智能家居接入 Home Assistant 计划
+# 🏠 绿城沁兰园狄耐克 (Dnake) 智能家居接入 Home Assistant 计划
 
-## 🛠️ 第一步：Docker 部署 (环境搭建)
+## 📝 第 1 步：配置你家的“专属设备密码本”
 
-我们建议使用 Docker 进行部署，既干净又不会弄乱你的 NAS/服务器 环境。
+由于我们每家每户的灯具数量、插线方式都不一样，在正式部署之前，我们需要把配置文件里的“通用设备编号”，替换成你家真实的“专属密码”。
+
+我在仓库里提供了一个叫 `device_bean.csv` 的参考文件（这其实是从狄耐克网关里导出的设备清单）。**你需要获取你自己家的这份表格。**
+
+以下示例为我家100平户型的设备，135和177户型的邻居需要根据自家智能网关里的device_bean列表添加额外的设备进config.yaml文件里。
+
+具体拉取自家device_bean的方式可以参考jupiter2021大佬的源项目。
+
+https://github.com/jupiter2021/smart-home-zigbee
+
+打开你家的 `device_bean.csv`，对照着修改 `config.yaml` 里面的设备信息。（省力的方式可以把自家的device_bean.csv和config.yaml同时喂给ai，让他帮你自动生成个新的config.yaml配置）
+
+### 🔍 怎么看懂表格并修改？（包教包会）
+
+在 CSV 表格里，你需要重点关注这三列：
+* `DEV_NAME` (设备名称)：比如“客厅主灯”
+* `DEV_NO` (设备组号)：比如 `51`
+* `DEV_CH` (设备通道号)：比如 `02`
+
+**【修改对照示例】**
+
+如果你在 CSV 表格里看到这样一行：
+> ... , **客厅主灯** , 01, **51**, 00, **02** , 0
+
+那么在你的 `config.yaml` 文件里，你要把它写成这样（注意：要在数字前面加上 `0x` 代表十六进制）：
+```yaml
+  - name: "客厅主灯"
+    dev_no: 0x51   # 对应表格里的 51
+    dev_ch: 0x02   # 对应表格里的 02
+
+
+## 🛠️ 第2步：Docker 部署 (环境搭建)
+
+我建议使用 Docker 进行部署，既干净又不会弄乱你的NAS/服务器环境。
 
 ### 1. 部署 MQTT 邮局 (mqtt_broker)
 这是全屋设备交换信息的“中转站”。
@@ -75,8 +108,12 @@
        python -u mqtt_bridge.py
        "
 ```
+验证成功连接mqtt_bridge的方法，SSH访问NAS/服务器，输入下列代码，显示“ ✅ 網關全雙工已連線，空調大滿貫功能就緒！” 即表示部署成功。
+```
+docker logs -f dnake_zigbee
+```
 
-## 💡 第二步：Home Assistant 配置
+## 💡 第3步：Home Assistant 配置
 
 1. 打开你的 HA 配置文件 `configuration.yaml`。
 2. 将本仓库提供的 `configuration.yaml` 代码片段粘贴进去。
