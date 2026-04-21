@@ -102,9 +102,9 @@ https://github.com/jupiter2021/smart-home-zigbee
        options:
          max-size: "10m"   # 限制单个日志文件最大 10MB
          max-file: "3"     # 最多保留 3 个备份
-     command: >
+     command: >   # 切换至清华源国内网络环境可以访问
        bash -c "
-       pip install paho-mqtt pyyaml -i https://pypi.tuna.tsinghua.edu.cn/simple &&    # 切换至清华源国内网络环境可以访问
+       pip install paho-mqtt pyyaml -i https://pypi.tuna.tsinghua.edu.cn/simple &&    
        python -u mqtt_bridge.py
        "
 ```
