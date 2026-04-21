@@ -10,7 +10,8 @@
 
 # 🏠 绿城沁兰园狄耐克 (Dnake) 智能家居接入 Home Assistant 教程示例
 
-![Uploading image.png…]()
+<img width="1586" height="595" alt="image" src="https://github.com/user-attachments/assets/4dcc06ce-97ab-45ce-86b0-c6ea6839c6b5" />
+
 
 
 ## 📝 第 1 步：配置你家的“专属设备密码本”
