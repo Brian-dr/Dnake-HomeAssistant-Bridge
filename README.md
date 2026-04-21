@@ -84,7 +84,7 @@ https://github.com/jupiter2021/smart-home-zigbee
 ### 2. 部署网桥程序 (dnake_zigbee)
 这是负责和狄耐克屏幕“聊天”的翻译程序。
 * 在 NAS/服务器 docker文件夹下创建 `zigbee` 目录。
-* 下载本仓库的 `mqtt_bridge.py` 和 `config.yaml`。
+* 下载本仓库的 `mqtt_bridge.py` 和 `config.yaml` 并上传到zigbee的docker项目目录（其他户型或小区的邻居记得核对修改config.yaml文件里的内容，使其与第1步device_bean中的设备信息一致后再上传）。
 * 修改 `config.yaml` 里的 IP 地址为你家的真实地址。
 * 可参考以下 `compose`，构建docker服务。程序会自动处理指令排队，防止网关卡死。
 
