@@ -112,8 +112,6 @@ mqtt:
         - "low"
         - "mid"
         - "high"
-      payload_on: "ON"
-      payload_off: "OFF"
 
   # ====== 溫控組件 ======
   climate:
