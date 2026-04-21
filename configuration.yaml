@@ -1,0 +1,218 @@
+# Home Assistant 完整配置文件
+
+# 基礎配置
+default_config:
+
+# 主題配置
+frontend:
+  themes: !include_dir_merge_named themes
+
+# 自動化、腳本與場景
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+# HTTP 反向代理配置 (按需配置，如果没有外网穿透可删除此段)
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 0.0.0.0/0
+  # base_url: https://ha.your-domain.com  
+
+# MQTT 設備配置（全屋集成版）
+mqtt:
+  # ====== 燈光組件 ======
+  light:
+    - name: "玄关柜灯带"
+      unique_id: "dnake_light_entryway_strip"
+      state_topic: "dnake/light/玄关柜灯带/state"
+      command_topic: "dnake/light/玄关柜灯带/set"
+      payload_on: "ON"
+      payload_off: "OFF"
+
+    - name: "玄关筒灯"
+      unique_id: "dnake_light_entryway_spotlight"
+      state_topic: "dnake/light/玄关筒灯/state"
+      command_topic: "dnake/light/玄关筒灯/set"
+      payload_on: "ON"
+      payload_off: "OFF"
+
+    - name: "餐厅灯带"
+      unique_id: "dnake_light_dining_strip"
+      state_topic: "dnake/light/餐厅灯带/state"
+      command_topic: "dnake/light/餐厅灯带/set"
+      payload_on: "ON"
+      payload_off: "OFF"
+
+    - name: "餐厅主灯"
+      unique_id: "dnake_light_dining_main"
+      state_topic: "dnake/light/餐厅主灯/state"
+      command_topic: "dnake/light/餐厅主灯/set"
+      payload_on: "ON"
+      payload_off: "OFF"
+
+    - name: "客厅主灯"
+      unique_id: "dnake_light_living_main"
+      state_topic: "dnake/light/客厅主灯/state"
+      command_topic: "dnake/light/客厅主灯/set"
+      payload_on: "ON"
+      payload_off: "OFF"
+
+    - name: "餐厅筒灯"
+      unique_id: "dnake_light_dining_spotlight"
+      state_topic: "dnake/light/餐厅筒灯/state"
+      command_topic: "dnake/light/餐厅筒灯/set"
+      payload_on: "ON"
+      payload_off: "OFF"
+
+    - name: "客厅筒灯"
+      unique_id: "dnake_light_living_spotlight"
+      state_topic: "dnake/light/客厅筒灯/state"
+      command_topic: "dnake/light/客厅筒灯/set"
+      payload_on: "ON"
+      payload_off: "OFF"
+
+    - name: "过道灯"
+      unique_id: "dnake_light_hallway"
+      state_topic: "dnake/light/过道灯/state"
+      command_topic: "dnake/light/过道灯/set"
+      payload_on: "ON"
+      payload_off: "OFF"
+
+    - name: "主卧灯带"
+      unique_id: "dnake_light_master_bedroom_strip"
+      state_topic: "dnake/light/主卧灯带/state"
+      command_topic: "dnake/light/主卧灯带/set"
+      payload_on: "ON"
+      payload_off: "OFF"
+
+    - name: "主卧衣帽"
+      unique_id: "dnake_light_master_bedroom_closet"
+      state_topic: "dnake/light/主卧衣帽/state"
+      command_topic: "dnake/light/主卧衣帽/set"
+      payload_on: "ON"
+      payload_off: "OFF"
+
+    - name: "主卧主灯"
+      unique_id: "dnake_light_master_bedroom_main"
+      state_topic: "dnake/light/主卧主灯/state"
+      command_topic: "dnake/light/主卧主灯/set"
+      payload_on: "ON"
+      payload_off: "OFF"
+
+  # ====== 新風組件 ======
+  fan:
+    - name: "新风系统"
+      unique_id: "dnake_fresh_air_main"
+      state_topic: "dnake/fresh_air/state"
+      command_topic: "dnake/fresh_air/set"
+      preset_mode_state_topic: "dnake/fresh_air/speed/state"
+      preset_mode_command_topic: "dnake/fresh_air/speed/set"
+      preset_modes:
+        - "low"
+        - "mid"
+        - "high"
+      payload_on: "ON"
+      payload_off: "OFF"
+
+  # ====== 溫控組件 ======
+  climate:
+    - name: "客厅空调"
+      unique_id: "dnake_ac_living_room"
+      modes: ["off", "cool", "heat", "dry", "fan_only"]
+      mode_state_topic: "dnake/ac/客厅空调/mode/state"
+      mode_command_topic: "dnake/ac/客厅空调/mode/set"
+      temperature_state_topic: "dnake/ac/客厅空调/temp/state"
+      temperature_command_topic: "dnake/ac/客厅空调/temp/set"
+      fan_modes: ["auto", "low", "mid", "high"]
+      fan_mode_state_topic: "dnake/ac/客厅空调/fan/state"
+      fan_mode_command_topic: "dnake/ac/客厅空调/fan/set"
+      min_temp: 16
+      max_temp: 32
+      temp_step: 1
+
+    - name: "主卧空调"
+      unique_id: "dnake_ac_master_bedroom"
+      modes: ["off", "cool", "heat", "dry", "fan_only"]
+      mode_state_topic: "dnake/ac/主卧空调/mode/state"
+      mode_command_topic: "dnake/ac/主卧空调/mode/set"
+      temperature_state_topic: "dnake/ac/主卧空调/temp/state"
+      temperature_command_topic: "dnake/ac/主卧空调/temp/set"
+      fan_modes: ["auto", "low", "mid", "high"]
+      fan_mode_state_topic: "dnake/ac/主卧空调/fan/state"
+      fan_mode_command_topic: "dnake/ac/主卧空调/fan/set"
+      min_temp: 16
+      max_temp: 32
+      temp_step: 1
+
+    - name: "次卧空调"
+      unique_id: "dnake_ac_guest_bedroom"
+      modes: ["off", "cool", "heat", "dry", "fan_only"]
+      mode_state_topic: "dnake/ac/次卧空调/mode/state"
+      mode_command_topic: "dnake/ac/次卧空调/mode/set"
+      temperature_state_topic: "dnake/ac/次卧空调/temp/state"
+      temperature_command_topic: "dnake/ac/次卧空调/temp/set"
+      fan_modes: ["auto", "low", "mid", "high"]
+      fan_mode_state_topic: "dnake/ac/次卧空调/fan/state"
+      fan_mode_command_topic: "dnake/ac/次卧空调/fan/set"
+      min_temp: 16
+      max_temp: 32
+      temp_step: 1
+
+    - name: "书房空调"
+      unique_id: "dnake_ac_study_room"
+      modes: ["off", "cool", "heat", "dry", "fan_only"]
+      mode_state_topic: "dnake/ac/书房空调/mode/state"
+      mode_command_topic: "dnake/ac/书房空调/mode/set"
+      temperature_state_topic: "dnake/ac/书房空调/temp/state"
+      temperature_command_topic: "dnake/ac/书房空调/temp/set"
+      fan_modes: ["auto", "low", "mid", "high"]
+      fan_mode_state_topic: "dnake/ac/书房空调/fan/state"
+      fan_mode_command_topic: "dnake/ac/书房空调/fan/set"
+      min_temp: 16
+      max_temp: 32
+      temp_step: 1
+
+    - name: "客厅地暖"
+      unique_id: "dnake_heating_living_room"
+      modes: ["off", "heat"]
+      mode_state_topic: "dnake/heating/客厅地暖/mode/state"
+      mode_command_topic: "dnake/heating/客厅地暖/mode/set"
+      temperature_state_topic: "dnake/heating/客厅地暖/temp/state"
+      temperature_command_topic: "dnake/heating/客厅地暖/temp/set"
+      min_temp: 16
+      max_temp: 32
+      temp_step: 1
+
+    - name: "主卧地暖"
+      unique_id: "dnake_heating_master_bedroom"
+      modes: ["off", "heat"]
+      mode_state_topic: "dnake/heating/主卧地暖/mode/state"
+      mode_command_topic: "dnake/heating/主卧地暖/mode/set"
+      temperature_state_topic: "dnake/heating/主卧地暖/temp/state"
+      temperature_command_topic: "dnake/heating/主卧地暖/temp/set"
+      min_temp: 16
+      max_temp: 32
+      temp_step: 1
+
+    - name: "次卧地暖"
+      unique_id: "dnake_heating_guest_bedroom"
+      modes: ["off", "heat"]
+      mode_state_topic: "dnake/heating/次卧地暖/mode/state"
+      mode_command_topic: "dnake/heating/次卧地暖/mode/set"
+      temperature_state_topic: "dnake/heating/次卧地暖/temp/state"
+      temperature_command_topic: "dnake/heating/次卧地暖/temp/set"
+      min_temp: 16
+      max_temp: 32
+      temp_step: 1
+
+    - name: "书房地暖"
+      unique_id: "dnake_heating_study_room"
+      modes: ["off", "heat"]
+      mode_state_topic: "dnake/heating/书房地暖/mode/state"
+      mode_command_topic: "dnake/heating/书房地暖/mode/set"
+      temperature_state_topic: "dnake/heating/书房地暖/temp/state"
+      temperature_command_topic: "dnake/heating/书房地暖/temp/set"
+      min_temp: 16
+      max_temp: 32
+      temp_step: 1

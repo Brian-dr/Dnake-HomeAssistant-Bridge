@@ -1,0 +1,70 @@
+gateway:
+  ip: "192.168.X.X"  # ⚠️ 请替换为你自己家狄耐克中控屏幕/网关的 IP 地址
+  port: 4196
+
+lights:
+  - name: "玄关柜灯带"
+    dev_no: 0x50
+    dev_ch: 0x01
+  - name: "玄关筒灯"
+    dev_no: 0x50
+    dev_ch: 0x02
+  - name: "餐厅灯带"
+    dev_no: 0x51
+    dev_ch: 0x00
+  - name: "餐厅主灯"
+    dev_no: 0x51
+    dev_ch: 0x01
+  - name: "客厅主灯"
+    dev_no: 0x51
+    dev_ch: 0x02
+  - name: "餐厅筒灯"
+    dev_no: 0x52
+    dev_ch: 0x00
+  - name: "客厅筒灯"
+    dev_no: 0x52
+    dev_ch: 0x01
+  - name: "过道灯"
+    dev_no: 0x52
+    dev_ch: 0x02
+  - name: "主卧灯带"
+    dev_no: 0x53
+    dev_ch: 0x00
+  - name: "主卧衣帽"
+    dev_no: 0x53
+    dev_ch: 0x01
+  - name: "主卧主灯"
+    dev_no: 0x55
+    dev_ch: 0x00
+
+fresh_air:
+  dev_no: 0x03
+  dev_ch: 0x01
+
+ac:
+  - name: "客厅空调"
+    dev_no: 0x01
+    dev_ch: 0x03
+  - name: "主卧空调"
+    dev_no: 0x01
+    dev_ch: 0x05
+  - name: "次卧空调"
+    dev_no: 0x01
+    dev_ch: 0x04
+  - name: "书房空调"
+    dev_no: 0x01
+    dev_ch: 0x01
+
+heating:
+  - name: "客厅地暖"
+    dev_no: 0x01
+    dev_ch: 0x03
+  - name: "主卧地暖"
+    dev_no: 0x01
+    dev_ch: 0x05
+  - name: "次卧地暖"
+    dev_no: 0x01
+    dev_ch: 0x04
+  - name: "书房地暖"
+    dev_no: 0x01
+    dev_ch: 0x01
