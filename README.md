@@ -2,6 +2,9 @@
 分享给沁兰园的邻居们，把开发商交付智能面板上的灯和空调地暖新风三件套全部接入Home Assistant实现双向同步和远程控制（内网穿透/tailscale下可以实现远程开关）
 同样的方法可能也适用于繁华三章其他两个兄弟小区的朋友们，但需要根据自己家情况摸索微调一下~
 
+在此特别感谢jupiter2021的启发，本项目借鉴了部分思路。
+源项目地址：https://github.com/jupiter2021/smart-home-zigbee
+
 # 🏠 狄耐克 (Dnake) 智能家居接入 Home Assistant 计划
 
 ## 🛠️ 第一步：Docker 部署 (环境搭建)
