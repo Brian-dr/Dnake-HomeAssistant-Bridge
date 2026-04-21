@@ -38,7 +38,7 @@ https://github.com/jupiter2021/smart-home-zigbee
   - name: "客厅主灯"
     dev_no: 0x51   # 对应表格里的 51
     dev_ch: 0x02   # 对应表格里的 02
-
+```
 
 ## 🛠️ 第2步：Docker 部署 (环境搭建)
 
