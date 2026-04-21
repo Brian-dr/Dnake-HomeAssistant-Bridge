@@ -15,26 +15,26 @@
 * 运行 `docker-compose` 启动服务。
 
 示例（加了日志文件上限，防止占用过多存储空间，可根据自己实际情况更改）：
-  version: '3.8'
+* version: '3.8'
 
-services:
-  mosquitto:
-    image: eclipse-mosquitto:latest
-    container_name: mqtt_broker
-    restart: unless-stopped
-    ports:
-      - "1883:1883"
-    volumes:
-      - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf
-      - ./data:/mosquitto/data
-      - ./log:/mosquitto/log
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"   # 限制单个日志文件最大 10MB
-        max-file: "3"     # 最多保留 3 个备份  
-    environment:
-      - TZ=Asia/Shanghai
+* services:
+ *  mosquitto:
+   *  image: eclipse-mosquitto:latest
+    * container_name: mqtt_broker
+    * restart: unless-stopped
+    * ports:
+    *   - "1883:1883"
+    * volumes:
+      * - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      * - ./data:/mosquitto/data
+      * - ./log:/mosquitto/log
+    * logging:
+      * driver: "json-file"
+      * options:
+        * max-size: "10m"   # 限制单个日志文件最大 10MB
+        * max-file: "3"     # 最多保留 3 个备份  
+    * environment:
+      * - TZ=Asia/Shanghai
       
 
 ### 2. 部署网桥程序 (dnake_zigbee)
@@ -45,30 +45,30 @@ services:
 * 使用仓库提供的 `docker-compose.yml` 启动，程序会自动处理指令排队，防止网关卡死。
 
 示例（加了日志文件上限，防止占用过多存储空间，可根据自己实际情况更改）
-version: '3.8'
+* version: '3.8'
 
-services:
-  dnake-bridge:
-    image: python:3.10-slim
-    container_name: dnake_zigbee
-    network_mode: "host"
-    restart: unless-stopped
-    environment:
-      - TZ=Asia/Shanghai
-      - PYTHONUNBUFFERED=1
-    volumes:
+* services:
+  * dnake-bridge:
+    * image: python:3.10-slim
+    * container_name: dnake_zigbee
+    * network_mode: "host"
+    * restart: unless-stopped
+    * environment:
+      * - TZ=Asia/Shanghai
+      * - PYTHONUNBUFFERED=1
+    * volumes:
       - .:/app
-    working_dir: /app
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"   # 限制单个日志文件最大 10MB
-        max-file: "3"     # 最多保留 3 个备份
-    command: >
-      bash -c "
-      pip install paho-mqtt pyyaml -i https://pypi.tuna.tsinghua.edu.cn/simple &&    # 切换至清华源国内网络环境可以访问
-      python -u mqtt_bridge.py
-      "
+    * working_dir: /app
+    * logging:
+      * driver: "json-file"
+      * options:
+        * max-size: "10m"   # 限制单个日志文件最大 10MB
+        * max-file: "3"     # 最多保留 3 个备份
+    * command: >
+      * bash -c "
+      * pip install paho-mqtt pyyaml -i https://pypi.tuna.tsinghua.edu.cn/simple &&    # 切换至清华源国内网络环境可以访问
+      * python -u mqtt_bridge.py
+      * "
 
 ## 💡 第二步：Home Assistant 配置
 
