@@ -39,7 +39,7 @@
          max-file: "3"     # 最多保留 3 个备份  
      environment:
        - TZ=Asia/Shanghai
-      
+   ```   
 
 ### 2. 部署网桥程序 (dnake_zigbee)
 这是负责和狄耐克屏幕“聊天”的翻译程序。
@@ -74,6 +74,7 @@
        pip install paho-mqtt pyyaml -i https://pypi.tuna.tsinghua.edu.cn/simple &&    # 切换至清华源国内网络环境可以访问
        python -u mqtt_bridge.py
        "
+```
 
 ## 💡 第二步：Home Assistant 配置
 
