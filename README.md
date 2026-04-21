@@ -115,11 +115,82 @@ docker logs -f dnake_zigbee
 
 ## 💡 第3步：Home Assistant 配置
 
-1. 打开你的 HA 配置文件 `configuration.yaml`。
-2. 将本仓库提供的 `configuration.yaml` 代码片段粘贴进去。
-3. 重启 Home Assistant，你就能在界面上看到漂亮的空调面板和灯光开关了！
+### 🔌 1. 让 Home Assistant 连上“MQTT 邮局”
+
+在刚才的第一步里，我们用 Docker 在NAS/服务器里建好了一个“MQTT 邮局”。现在，我们需要让 Home Assistant (HA) 知道这个邮局的地址，这样它才能顺利接收和发送狄耐克设备的情报。
+
+**操作步骤（全程在 HA 网页端点选即可）：**
+
+1. 打开你的 Home Assistant 网页控制台。
+2. 点击左侧边栏的 **配置 (Settings)** -> **设备与服务 (Devices & Services)**。
+3. 点击右下角的 **+ 添加集成 (Add Integration)**。
+4. 在搜索框里输入 `MQTT`，然后点击搜索出来的 **MQTT** 官方图标。
+5. 在弹出的配置窗口中，按以下信息填写：
+   * **代理 (Broker)**：填入你家刚刚部署 MQTT Docker 的NAS/服务器局域网 IP 地址（例如 `192.168.x.x`）。
+   * **端口 (Port)**：`1883`
+   * **用户名 / 密码**：直接留空（因为我们的本地基础部署没有开启密码验证）。
+6. 点击 **提交**。
+
+🎉 只要屏幕上提示“成功”，就说明你的 HA 已经完美对接了本地的 MQTT 邮局！
 
 ---
+
+### 📝 2. 把设备挂载到 Home Assistant 界面上
+
+邮局虽然通了，但 HA 还没见过你家的设备清单。最后一步，就是把我们前面整理好的设备代码贴进去。
+
+1. 在 HA 中打开你的核心配置文件：`configuration.yaml`（可以通过 File editor 或 Studio Code Server 插件打开）。
+2. 将以下代码**全部复制并粘贴**到文件的最下方。
+
+*(注意：下面示例代码里的设备名字，必须和你第一步在 `config.yaml` 里填写的名字一模一样！)*
+
+```yaml
+# ====== 空调组件 (Climate) ======
+  climate:
+    - name: "客厅空调"
+      unique_id: "dnake_ac_living_room"
+      modes: ["off", "cool", "heat", "dry", "fan_only"]  #对应关机、制冷、制热、抽湿、送风模式
+      mode_state_topic: "dnake/ac/客厅空调/mode/state"
+      mode_command_topic: "dnake/ac/客厅空调/mode/set"
+      temperature_state_topic: "dnake/ac/客厅空调/temp/state"
+      temperature_command_topic: "dnake/ac/客厅空调/temp/set"
+      fan_modes: ["auto", "low", "mid", "high"]          #对应自动、低、中、高四档风速
+      fan_mode_state_topic: "dnake/ac/客厅空调/fan/state"
+      fan_mode_command_topic: "dnake/ac/客厅空调/fan/set"
+      min_temp: 16
+      max_temp: 32
+      temp_step: 1
+
+  # ====== 地暖组件 (Climate) ======
+  # 地暖和空调类似，但模式通常只有关(off)和加热(heat)
+    - name: "客厅地暖"
+      unique_id: "dnake_heating_living_room"
+      modes: ["off", "heat"]
+      mode_state_topic: "dnake/heating/客厅地暖/mode/state"
+      mode_command_topic: "dnake/heating/客厅地暖/mode/set"
+      temperature_state_topic: "dnake/heating/客厅地暖/temp/state"
+      temperature_command_topic: "dnake/heating/客厅地暖/temp/set"
+      min_temp: 16
+      max_temp: 32
+      temp_step: 1
+
+  # ====== 新风组件 (Fan) ======
+  fan:
+    - name: "新风系统"
+      unique_id: "dnake_fresh_air_main"
+      state_topic: "dnake/fresh_air/state"
+      command_topic: "dnake/fresh_air/set"
+      preset_mode_state_topic: "dnake/fresh_air/speed/state"
+      preset_mode_command_topic: "dnake/fresh_air/speed/set"
+      preset_modes:  #对应低、中、高三档风速
+        - "low"
+        - "mid"
+        - "high"
+      payload_on: "ON"
+      payload_off: "OFF"
+# ... 
+
+```
 
 ## 👨‍🔬 常见问题 (邻居必读)
 * **状态显示“未知”？** 别担心，去墙上按一下开关，状态就会立即同步并永久记录。
