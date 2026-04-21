@@ -1,0 +1,2 @@
+# Dnake-HomeAssistant-Bridge
+分享给沁兰园的邻居们，把开发商交付智能面板上的灯和空调地暖新风三件套全部接入Home Assistant实现双向同步和远程控制（内网穿透/tailscale下可以实现远程开关）
