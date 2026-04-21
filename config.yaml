@@ -2,7 +2,7 @@ gateway:
   ip: "192.168.X.X"  # ⚠️ 请替换为你自己家狄耐克中控屏幕/网关的 IP 地址
   port: 4196
 
-lights:
+lights:  # 以下为我家的示例，请根据自家的device_bean情况更改
   - name: "玄关柜灯带"
     dev_no: 0x50
     dev_ch: 0x01
