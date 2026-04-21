@@ -4,11 +4,11 @@
 
 同样的方法可能也适用于繁华三章其他两个兄弟小区的朋友们，但需要根据自己家情况摸索微调一下~
 
-在此特别感谢jupiter2021的启发，本项目借鉴了部分思路。
+在此特别感谢jupiter2021的启发，本项目借鉴了以下项目的一部分思路。
 
 源项目地址：https://github.com/jupiter2021/smart-home-zigbee
 
-# 🏠 绿城沁兰园狄耐克 (Dnake) 智能家居接入 Home Assistant 计划
+# 🏠 绿城沁兰园狄耐克 (Dnake) 智能家居接入 Home Assistant 教程示例
 
 ## 📝 第 1 步：配置你家的“专属设备密码本”
 
@@ -142,8 +142,7 @@ docker logs -f dnake_zigbee
 
 邮局虽然通了，但 HA 还没见过你家的设备清单。最后一步，就是把我们前面整理好的设备代码贴进去。
 
-1. 在 HA 中打开你的核心配置文件：`configuration.yaml`（可以通过 File editor 或 Studio Code Server 插件打开）。
-2. 将以下代码**全部复制并粘贴**到文件的最下方。
+下载本项目的`configuration.yaml`文件，并按照下方示例格式，对照前文的 `config.yaml` 录入你家的设备，保存并将其上传至在部署HA的 NAS/服务器 项目目录，重启HA后就能在设备处刷出网关下的所有设备。
 
 *(注意：下面示例代码里的设备名字，必须和你第一步在 `config.yaml` 里填写的名字一模一样！)*
 
