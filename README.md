@@ -51,7 +51,7 @@ https://github.com/jupiter2021/smart-home-zigbee
 这是全屋设备交换信息的“中转站”。
 * 在 NAS/服务器 docker文件夹下创建 `mosquitto` 目录。
 * **核心避坑：** 务必在终端执行 `chmod -R 777 /your_path/mosquitto/data` 赋予写入权限，否则docker重启后HA里设备状态会丢失同步！！
-* 运行 `docker-compose` 启动服务。
+* 可参考以下 `compose`，构建docker服务。
 
 示例（加了日志文件上限，防止占用过多存储空间，可根据自己实际情况更改）：
  ```yaml
@@ -82,7 +82,7 @@ https://github.com/jupiter2021/smart-home-zigbee
 * 在 NAS/服务器 docker文件夹下创建 `zigbee` 目录。
 * 下载本仓库的 `mqtt_bridge.py` 和 `config.yaml`。
 * 修改 `config.yaml` 里的 IP 地址为你家的真实地址。
-* 使用仓库提供的 `docker-compose.yml` 启动，程序会自动处理指令排队，防止网关卡死。
+* 可参考以下 `compose`，构建docker服务。程序会自动处理指令排队，防止网关卡死。
 
 示例（加了日志文件上限，防止占用过多存储空间，可根据自己实际情况更改）
  ```yaml
@@ -120,7 +120,7 @@ docker logs -f dnake_zigbee
 
 ### 🔌 1. 让 Home Assistant 连上“MQTT 邮局”
 
-在刚才的第一步里，我们用 Docker 在NAS/服务器里建好了一个“MQTT 邮局”。现在，我们需要让 Home Assistant (HA) 知道这个邮局的地址，这样它才能顺利接收和发送狄耐克设备的情报。
+在刚才的第一步里，我们用 Docker 在 NAS/服务器 里建好了一个“MQTT 邮局”。现在，我们需要让 Home Assistant (HA) 知道这个邮局的地址，这样它才能顺利接收和发送狄耐克设备的情报。
 
 **操作步骤（全程在 HA 网页端点选即可）：**
 
